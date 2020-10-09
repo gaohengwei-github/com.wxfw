@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxfw.dao.RolePermissionRelationMapper">
+
+    <!-- 根据RoleId删除权限菜单关联信息 -->
+    <delete id="deleteByRoleId" parameterType="string">
+	   DELETE FROM SYSTEM_ROLE_PERMISSION_RELATION where role_id = #{roleId}
+    </delete>
+
+</mapper>

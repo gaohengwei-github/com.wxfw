@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxfw.dao.HjmallSystemConfigDetailMapper">
+
+    <!-- 模糊搜索 -->
+    <select id="searchSystemConfigDetail" parameterType="map"
+            resultType="com.wxfw.entity.HjmallSystemConfigDetail">
+        SELECT
+        h.*
+        FROM SYSTEM_CONFIG_DETAIL h
+        LEFT JOIN SYSTEM_CONFIG hp on hp.id = h.config_id
+        WHERE 1 = 1
+        <if test="title != null and '' != title">
+            and hp.name like CONCAT("%", #{title}, "%")
+        </if>
+    </select>
+
+</mapper>

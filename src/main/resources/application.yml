@@ -1,0 +1,85 @@
+server:
+  port: 8801
+  tomcat:
+    max-threads: 10
+  servlet:
+    context-path: /api/system
+
+spring:
+  application:
+    name: /api/system
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    druid:
+      master:
+        url: jdbc:sqlserver://114.112.193.6:12800;DatabaseName=xzsp_yn
+        username: xzsp
+        password: password
+      # 初始连接数
+      initialSize: 5
+      # 最小连接池数量
+      minIdle: 10
+      # 最大连接池数量
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      # 配置一个连接在池中最大生存的时间，单位是毫秒
+      maxEvictableIdleTimeMillis: 900000
+      # 配置检测连接是否有效
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      webStatFilter:
+        enabled: true
+      statViewServlet:
+        enabled: true
+        # 设置白名单，不填则允许所有访问
+        allow:
+        url-pattern: /monitor/druid/*
+      filter:
+        stat:
+          enabled: true
+          # 慢SQL记录
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+        wall:
+          config:
+            multi-statement-allow: true
+
+redis:
+  # Redis数据库索引（默认为0）
+  database: 0
+  # Redis服务器地址
+  host: 106.53.233.191
+  # Redis服务器连接端口
+  port: 6379
+  # Redis服务器连接密码（默认为空）
+  password:
+  #连接池最大连接数（使用负值表示没有限制）
+  pool:
+    max-active: 300
+    # 连接池最大阻塞等待时间（使用负值表示没有限制）
+
+    max-wait: -1
+    # 连接池中的最大空闲连接
+    max-idle: 100
+    # 连接池中的最小空闲连接
+    min-idle: 20
+  # 连接超时时间（毫秒）
+  timeout: 5000
+
+
+
+logging:
+  level:
+    com.wxfw.dao:
+      debug

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxfw.dao.HjmallAdminMapper">
+
+    <!-- 根据adminId查询角色信息 -->
+    <select id="findRolesByAdminId" parameterType="string" resultType="com.wxfw.entity.HjmallRole">
+	    SELECT
+		   r.id id,
+		   r.role_name roleName
+	    FROM SYSTEM_ROLE r
+	    LEFT JOIN SYSTEM_ADMIN_ROLE_RELATION arr on r.id = arr.role_id
+	    INNER JOIN SYSTEM_ADMIN ha on arr.admin_id = ha.id
+	    WHERE ha.id = #{adminId} and  r.status = 1
+    </select>
+
+    <select id="countByAccount" parameterType="string" resultType="int">
+		SELECT count(*) FROM SYSTEM_ADMIN WHERE account = #{account}
+	</select>
+
+    <update id="bindShopId" parameterType="map">
+		UPDATE hjmall_admin SET shop_id = #{shopId}, shop_name= #{shopName} where id = #{userId}
+	</update>
+
+</mapper>

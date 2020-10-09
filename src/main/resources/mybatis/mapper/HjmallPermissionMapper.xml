@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxfw.dao.HjmallPermissionMapper">
+
+    <!-- 根据adminId查询权限信息 -->
+    <select id="findAllPermissionByAdminId" parameterType="string"
+            resultType="com.wxfw.entity.HjmallPermission">
+	    SELECT
+		   p.*
+	    FROM SYSTEM_PERMISSION p
+	    LEFT JOIN SYSTEM_ROLE_PERMISSION_RELATION arr on p.id = arr.permission_id
+	    LEFT JOIN SYSTEM_ADMIN_ROLE_RELATION a on arr.role_id = a.role_id
+	    LEFT JOIN SYSTEM_ADMIN ha on a.admin_id = ha.id
+	    WHERE p.status = 1 and  p.value = '1' and ha.id = #{adminId}
+	    order by p.sort asc
+    </select>
+
+    <!-- 根据adminId查询菜单信息 -->
+    <select id="findAllMenuByAdminId" parameterType="string"
+            resultType="com.wxfw.entity.HjmallPermission">
+	    SELECT
+		   p.*
+	    FROM SYSTEM_PERMISSION p
+	    LEFT JOIN SYSTEM_ROLE_PERMISSION_RELATION arr on p.id = arr.permission_id
+	    LEFT JOIN SYSTEM_ADMIN_ROLE_RELATION a on arr.role_id = a.role_id
+	    LEFT JOIN SYSTEM_ADMIN ha on a.admin_id = ha.id
+	    WHERE p.status = 1 and  p.value = '1' and p.type != 3 and ha.id = #{adminId}
+	    order by p.sort asc
+    </select>
+
+    <!--根据roleId查询权限信息 -->
+    <select id="findAllByRoleId" parameterType="string" resultType="com.wxfw.entity.HjmallPermission">
+		SELECT
+			p.*
+		FROM SYSTEM_PERMISSION p
+		LEFT JOIN SYSTEM_ROLE_PERMISSION_RELATION arr on p.id = arr.permission_id
+		WHERE p.status = 1 and  p.value = '1' and arr.role_id = #{roleId}
+		order by p.sort asc
+	</select>
+
+</mapper>

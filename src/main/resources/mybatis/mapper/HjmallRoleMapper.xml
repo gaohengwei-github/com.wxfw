@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxfw.dao.HjmallRoleMapper">
+
+    <!-- 根据adminId查询角色信息 -->
+    <select id="findAllByRoleId" parameterType="string" resultType="int">
+	    SELECT
+		  COUNT(*)
+	    FROM SYSTEM_ADMIN h
+	    LEFT JOIN SYSTEM_ADMIN_ROLE_RELATION arr on arr.admin_id = h.id
+	    INNER JOIN SYSTEM_ROLE ha on arr.role_id = ha.id
+	    WHERE ha.id = #{roleId}
+    </select>
+
+</mapper>
